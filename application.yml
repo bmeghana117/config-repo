@@ -34,7 +34,6 @@ resilience4j:
         maxAttempts: 3
         waitDuration: 1s
         retryExceptions:
-          - feign.RetryableException
           - java.io.IOException
 
   ratelimiter:
