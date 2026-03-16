@@ -1,0 +1,51 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+      routes:
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/**
+        - id: policy-service
+          uri: lb://policy-service
+          predicates:
+            - Path=/policies/**
+
+        - id: customer-service
+          uri: lb://customer-service
+          predicates:
+            - Path=/customers/**
+
+        - id: policy-enrollment-service
+          uri: lb://policy-enrollment-service
+          predicates:
+            - Path=/enrollments/**
+
+        - id: claim-service
+          uri: lb://claim-service
+          predicates:
+            - Path=/claims/**
+
+        - id: quote-service
+          uri: lb://quote-service
+          predicates:
+            - Path=/quotes/**
+
+        - id: renewal-service
+          uri: lb://renewal-service
+          predicates:
+            - Path=/renewals/**
+
+jwt:
+ secret: mySuperSecretKeyForHS256Algorithm12345
